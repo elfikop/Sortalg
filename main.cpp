@@ -141,6 +141,7 @@ int main() {
         exit(0);
         break;
     default:
+        cout<<"niun"<<endl;
         break;
     }
     }
