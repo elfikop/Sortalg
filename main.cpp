@@ -140,6 +140,8 @@ int main() {
         deletemem();
         exit(0);
         break;
+    default:
+        break;
     }
     }
     return 0;
