@@ -126,6 +126,7 @@ int main() {
         czas++;
         srand(czas);
         randomize(a);
+        cout<<"aaa"<<endl;
         break;
     case 2:
         sort1();
