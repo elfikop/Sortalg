@@ -30,7 +30,7 @@ void randomize(int b){
             for(int j=0;j<=i;j++){
                 if(tab0[j]==temp){
                 powt=true;
-                //cout<<i<<" Powtórka!!!"<<temp<<endl;
+                //cout<<i<<" PowtÃ³rka!!!"<<temp<<endl;
                 break;
                 }
             }
@@ -91,23 +91,24 @@ void sort1(){//basic insert sorting alg
             temp=tab1[j];
             tab1[j]=tab1[j-1];
             tab1[j-1]=temp;
-
         }
    }
 
 }
-void sort2(){//basic insert sorting alg
+void sort2(){//variation 1 of insert sorting algorithm
     int temp;
+    int j;
    for(int i=1;i<a;i++){
-        for(int j=i;(j>0)&&(tab2[j]<tab2[j-1]);j--)
-        {
-            temp=tab2[j];
-            tab2[j]=tab2[j-1];
-            tab2[j-1]=temp;
-
+       j=0;
+        while((j<tab2[i])&&(tab2[j]<tab2[i])){
+            j++;
+        }
+        for(int ii=i;ii>j;ii--){
+            temp=tab2[ii];
+            tab2[ii]=tab2[ii-1];
+            tab2[ii-1]=temp;
         }
    }
-
 }
 //tab1[j]^=tab1[j-1];
 //tab1[j-1]^=tab1[j];
@@ -126,7 +127,6 @@ int main() {
         czas++;
         srand(czas);
         randomize(a);
-        cout<<"aaa"<<endl;
         break;
     case 2:
         sort1();
@@ -140,9 +140,6 @@ int main() {
     case 4:
         deletemem();
         exit(0);
-        break;
-    default:
-        cout<<"niun"<<endl;
         break;
     }
     }
