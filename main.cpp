@@ -52,22 +52,33 @@ void randomize(int b){
     memcpy(tab5, tab0,(4*a));
 }
 void displayres(int a){
+    cout<<"czas sortowania 1 algorytmu: "<<results[0][0]<<endl;
+    cout<<"czas sortowania 2 algorytmu: "<<results[1][0]<<endl;
+    cout<<"czas sortowania 3 algorytmu: "<<results[2][0]<<endl;
+    cout<<"czas sortowania 4 algorytmu: "<<results[3][0]<<endl;
+}
+displaysorted(int a){
+    int temp;
     cout<<"tab0"<<endl;
     for(int i=0; i<a;i++){
         cout<<"element "<<i+1<<" :"<<tab0[i]<<endl;
     }
+    cin>>temp;
     cout<<"tab1"<<endl;
     for(int i=0; i<a;i++){
         cout<<"element "<<i+1<<" :"<<tab1[i]<<endl;
     }
+    cin>>temp;
     cout<<"tab2"<<endl;
     for(int i=0; i<a;i++){
         cout<<"element "<<i+1<<" :"<<tab2[i]<<endl;
     }
+    cin>>temp;
     cout<<"tab3"<<endl;
     for(int i=0; i<a;i++){
         cout<<"element "<<i+1<<" :"<<tab3[i]<<endl;
     }
+    cin>>temp;
 
    cout<<"tab4"<<endl;
     for(int i=0; i<a;i++){
@@ -77,11 +88,7 @@ void displayres(int a){
     //for(int i=0; i<a;i++){
     //    cout<<"element "<<i+1<<" :"<<tab5[i]<<endl;
     //}
-    cout<<"czas sortowania 1 algorytmu: "<<results[0][0]<<endl;
-    cout<<"czas sortowania 2 algorytmu: "<<results[1][0]<<endl;
-    cout<<"czas sortowania 3 algorytmu: "<<results[2][0]<<endl;
-    cout<<"czas sortowania 4 algorytmu: "<<results[3][0]<<endl;
-}
+    }
 void deletemem(){
     delete[] tab0;
     delete[] tab1;
@@ -163,7 +170,7 @@ void sort32(){//algorithm no. 3 improved
 int main() {
     while(true){
     int choice;
-    cout<<"MENU OPCJI"<<endl<<"1. zainicjuj nowe tablice"<<endl<<"2. rozpocznij sortowanie"<<endl<<"3. podglad wynikow"<<endl<<"4. wyjscie"<<endl<<"============================"<<endl;
+    cout<<"MENU OPCJI"<<endl<<"1. zainicjuj nowe tablice"<<endl<<"2. rozpocznij sortowanie"<<endl<<"3. podglad wynikow"<<endl<<"4. podglad tablic"<<endl<<"5. wyjscie"<<endl<<"============================"<<endl;
     cin>>choice;
     switch(choice){
     case 1:
@@ -185,6 +192,9 @@ int main() {
         displayres(a);
         break;
     case 4:
+        displaysorted(a);
+        break;
+    case 5:
         deletemem();
         exit(0);
         break;
