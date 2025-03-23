@@ -1,7 +1,10 @@
 #include<iostream>
 #include<random>
 #include<ctime>
+#include<chrono>
+#include<thread>
 using namespace std;
+using namespace std::literals::chrono_literals;
 int a;
 int czas=time(0);
 int* tab1;
@@ -10,7 +13,7 @@ int* tab3;
 int* tab4;
 int* tab5;
 int* tab0;
-int results[5][6]; //tablica na piec wierszy-algorytmow i na 6 kolumn, kategorii porownania, <100 czas i operacje; <1000 czas i operacje; <10000 czas i operacje
+double results[5][6]; //tablica na piec wierszy-algorytmow i na 6 kolumn, kategorii porownania, <100 czas i operacje; <1000 czas i operacje; <10000 czas i operacje
 void randomize(int b){
     tab0=new int[b];
     tab1=new int[b];
@@ -61,19 +64,23 @@ void displayres(int a){
     for(int i=0; i<a;i++){
         cout<<"element "<<i+1<<" :"<<tab2[i]<<endl;
     }
-    //cout<<"tab3"<<endl;
-    //for(int i=0; i<a;i++){
-    //    cout<<"element "<<i+1<<" :"<<tab3[i]<<endl;
-    //}
-//
-   //cout<<"tab4"<<endl;
-    //for(int i=0; i<a;i++){
-    //    cout<<"element "<<i+1<<" :"<<tab4[i]<<endl;
-    //}
+    cout<<"tab3"<<endl;
+    for(int i=0; i<a;i++){
+        cout<<"element "<<i+1<<" :"<<tab3[i]<<endl;
+    }
+
+   cout<<"tab4"<<endl;
+    for(int i=0; i<a;i++){
+        cout<<"element "<<i+1<<" :"<<tab4[i]<<endl;
+    }
     //cout<<"tab5"<<endl;
     //for(int i=0; i<a;i++){
     //    cout<<"element "<<i+1<<" :"<<tab5[i]<<endl;
     //}
+    cout<<"czas sortowania 1 algorytmu: "<<results[0][0]<<endl;
+    cout<<"czas sortowania 2 algorytmu: "<<results[1][0]<<endl;
+    cout<<"czas sortowania 3 algorytmu: "<<results[2][0]<<endl;
+    cout<<"czas sortowania 4 algorytmu: "<<results[3][0]<<endl;
 }
 void deletemem(){
     delete[] tab0;
@@ -85,6 +92,8 @@ void deletemem(){
 }
 void sort1(){//basic insert sorting alg
     int temp;
+     auto start=std::chrono::high_resolution_clock::now();
+
    for(int i=1;i<a;i++){
         for(int j=i;(j>0)&&(tab1[j]<tab1[j-1]);j--)
         {
@@ -93,10 +102,14 @@ void sort1(){//basic insert sorting alg
             tab1[j-1]=temp;
         }
    }
-
+   auto end=std::chrono::high_resolution_clock::now();
+   std::chrono::duration<double> duration=end - start;
+   results[0][0]=duration.count();
 }
+
 void sort2(){//variation 1 of insert sorting algorithm
     int temp;
+    auto start=std::chrono::high_resolution_clock::now();
     int j;
    for(int i=1;i<a;i++){
        j=0;
@@ -109,6 +122,40 @@ void sort2(){//variation 1 of insert sorting algorithm
             tab2[ii-1]=temp;
         }
    }
+   auto end=std::chrono::high_resolution_clock::now();
+   std::chrono::duration<double> duration=end - start;
+   results[1][0]=duration.count();
+}
+void sort3(){//variation 2 of insert sorting algorithm
+    int temp;
+     auto start=std::chrono::high_resolution_clock::now();
+
+    for (int i = a - 2; i >= 0; i--) {
+        for (int j = i; (j < (a - 1)) && (tab3[j] > tab3[j + 1]); j++){
+            temp=tab3[j];
+            tab3[j]=tab3[j+1];
+            tab3[j+1]=temp;
+        }
+   }
+   auto end=std::chrono::high_resolution_clock::now();
+   std::chrono::duration<double> duration=end - start;
+   results[2][0]=duration.count();
+}
+void sort32(){//algorithm no. 3 improved
+    auto start=std::chrono::high_resolution_clock::now();
+    for (int i = a - 2; i >= 0; i--) {
+        int temp = tab4[i];
+        int j = i;
+        while (j < a - 1 && tab4[j + 1] < temp) {
+            tab4[j] = tab4[j + 1];
+            j++;
+        }
+
+        tab4[j] = temp;
+    }
+   auto end=std::chrono::high_resolution_clock::now();
+   std::chrono::duration<double> duration=end - start;
+   results[3][0]=duration.count();
 }
 //tab1[j]^=tab1[j-1];
 //tab1[j-1]^=tab1[j];
@@ -131,8 +178,8 @@ int main() {
     case 2:
         sort1();
         sort2();
-
-
+        sort3();
+        sort32();
         break;
     case 3:
         displayres(a);
