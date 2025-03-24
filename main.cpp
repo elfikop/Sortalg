@@ -4,7 +4,7 @@
 #include<chrono>
 #include<thread>
 using namespace std;
-using namespace std::literals::chrono_literals;
+//using namespace std::literals::chrono_literals;
 int a;
 int czas=time(0);
 int* tab1;
@@ -30,13 +30,13 @@ void randomize(int b){
             i++;
         }
         else{
-            for(int j=0;j<=i;j++){
-                if(tab0[j]==temp){
-                powt=true;
+            //for(int j=0;j<=i;j++){
+            //    if(tab0[j]==temp){
+            //    powt=true;
                 //cout<<i<<" Powtórka!!!"<<temp<<endl;
-                break;
-                }
-            }
+             //  break;
+             //   }
+            //}
             if(!powt){
                 tab0[i]=temp;
                 i++;
@@ -79,11 +79,11 @@ displaysorted(int a){
         cout<<"element "<<i+1<<" :"<<tab3[i]<<endl;
     }
     cin>>temp;
-
    cout<<"tab4"<<endl;
     for(int i=0; i<a;i++){
         cout<<"element "<<i+1<<" :"<<tab4[i]<<endl;
     }
+    cin>>temp;
     //cout<<"tab5"<<endl;
     //for(int i=0; i<a;i++){
     //    cout<<"element "<<i+1<<" :"<<tab5[i]<<endl;
@@ -112,6 +112,7 @@ void sort1(){//basic insert sorting alg
    auto end=std::chrono::high_resolution_clock::now();
    std::chrono::duration<double> duration=end - start;
    results[0][0]=duration.count();
+   cout<<"1 sort powiodlo sie"<<endl;
 }
 
 void sort2(){//variation 1 of insert sorting algorithm
@@ -123,47 +124,36 @@ void sort2(){//variation 1 of insert sorting algorithm
         while((j<tab2[i])&&(tab2[j]<tab2[i])){
             j++;
         }
+        temp=tab2[i];
         for(int ii=i;ii>j;ii--){
-            temp=tab2[ii];
             tab2[ii]=tab2[ii-1];
-            tab2[ii-1]=temp;
         }
+        tab2[j]=temp;
    }
    auto end=std::chrono::high_resolution_clock::now();
    std::chrono::duration<double> duration=end - start;
    results[1][0]=duration.count();
+    cout<<"2 sort powiodlo sie"<<endl;
 }
-void sort3(){//variation 2 of insert sorting algorithm
-    int temp;
-     auto start=std::chrono::high_resolution_clock::now();
-
-    for (int i = a - 2; i >= 0; i--) {
-        for (int j = i; (j < (a - 1)) && (tab3[j] > tab3[j + 1]); j++){
-            temp=tab3[j];
-            tab3[j]=tab3[j+1];
-            tab3[j+1]=temp;
-        }
-   }
-   auto end=std::chrono::high_resolution_clock::now();
-   std::chrono::duration<double> duration=end - start;
-   results[2][0]=duration.count();
-}
-void sort32(){//algorithm no. 3 improved
+void sort3(){//variation 2 of insert sorting algorithm mirror of sort2
     auto start=std::chrono::high_resolution_clock::now();
     for (int i = a - 2; i >= 0; i--) {
-        int temp = tab4[i];
+        int temp = tab3[i];
         int j = i;
-        while (j < a - 1 && tab4[j + 1] < temp) {
-            tab4[j] = tab4[j + 1];
+        while (j < a - 1 && tab3[j + 1] < temp) {
+            tab3[j] = tab3[j + 1];
             j++;
         }
-
-        tab4[j] = temp;
+        tab3[j] = temp;
     }
    auto end=std::chrono::high_resolution_clock::now();
    std::chrono::duration<double> duration=end - start;
-   results[3][0]=duration.count();
+   results[2][0]=duration.count();
+    cout<<"4 sort powiodlo sie"<<endl;
 }
+void sort4(){ //variation 3 of insert sorting algorithm mirror of sort2
+}
+
 //tab1[j]^=tab1[j-1];
 //tab1[j-1]^=tab1[j];
 //tab1[j]^=tab1[j-1];
@@ -186,7 +176,7 @@ int main() {
         sort1();
         sort2();
         sort3();
-        sort32();
+        sort4();
         break;
     case 3:
         displayres(a);
