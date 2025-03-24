@@ -83,7 +83,6 @@ displaysorted(int a){
     for(int i=0; i<a;i++){
         cout<<"element "<<i+1<<" :"<<tab4[i]<<endl;
     }
-    cin>>temp;
     //cout<<"tab5"<<endl;
     //for(int i=0; i<a;i++){
     //    cout<<"element "<<i+1<<" :"<<tab5[i]<<endl;
@@ -102,12 +101,14 @@ void sort1(){//basic insert sorting alg
      auto start=std::chrono::high_resolution_clock::now();
 
    for(int i=1;i<a;i++){
-        for(int j=i;(j>0)&&(tab1[j]<tab1[j-1]);j--)
+        temp=tab1[i];
+        int j=i;
+        while((j>0)&&(tab1[j-1]>temp))
         {
-            temp=tab1[j];
             tab1[j]=tab1[j-1];
-            tab1[j-1]=temp;
+            j--;
         }
+        tab1[j]=temp;
    }
    auto end=std::chrono::high_resolution_clock::now();
    std::chrono::duration<double> duration=end - start;
@@ -115,13 +116,14 @@ void sort1(){//basic insert sorting alg
    cout<<"1 sort powiodlo sie"<<endl;
 }
 
+
 void sort2(){//variation 1 of insert sorting algorithm
     int temp;
     auto start=std::chrono::high_resolution_clock::now();
     int j;
    for(int i=1;i<a;i++){
        j=0;
-        while((j<tab2[i])&&(tab2[j]<tab2[i])){
+        while((j<i)&&(tab2[j]<tab2[i])){
             j++;
         }
         temp=tab2[i];
@@ -149,9 +151,26 @@ void sort3(){//variation 2 of insert sorting algorithm mirror of sort2
    auto end=std::chrono::high_resolution_clock::now();
    std::chrono::duration<double> duration=end - start;
    results[2][0]=duration.count();
-    cout<<"4 sort powiodlo sie"<<endl;
+    cout<<"3 sort powiodlo sie"<<endl;
 }
-void sort4(){ //variation 3 of insert sorting algorithm mirror of sort2
+void sort4(){ //variation 3 of insert sorting algorithm mirror of sort1
+      int temp;
+     auto start=std::chrono::high_resolution_clock::now();
+
+   for(int i=a-1;i>=0;i--){
+        temp=tab4[i];
+        int j=i;
+        while((j<(a-1))&&(tab4[j+1]<temp))
+        {
+            tab4[j]=tab4[j+1];
+            j++;
+        }
+        tab4[j]=temp;
+   }
+   auto end=std::chrono::high_resolution_clock::now();
+   std::chrono::duration<double> duration=end - start;
+   results[3][0]=duration.count();
+   cout<<"4 sort powiodlo sie"<<endl;
 }
 
 //tab1[j]^=tab1[j-1];
