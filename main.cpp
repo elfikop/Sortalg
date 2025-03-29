@@ -1,4 +1,4 @@
-//24.03
+
 #include<iostream>
 #include<random>
 #include<ctime>
@@ -14,8 +14,8 @@ int* tab3;
 int* tab4;
 int* tab5;
 int* tab0;
-double results[5][6]; //tablica na piec wierszy-algorytmow i na 6 kolumn, kategorii porownania, <100 czas i operacje; <1000 czas i operacje; <10000 czas i operacje
-void randomize(int b){
+double results[5][6]; //tab for results of both time results and number of oeprations each algorithm had to inflict in order to sort the array
+void randomize(int b){ // function that randomizes and initializes four tabs of int from range 1 to aprox 32000
     tab0=new int[b];
     tab1=new int[b];
     tab2=new int[b];
@@ -44,50 +44,93 @@ void randomize(int b){
             }
         }
     }
-    cout<<"sukces"<<endl;
-    cout<<sizeof(int);
+    cout<<"succes!"<<endl;
     memcpy(tab1, tab0,(4*a));
     memcpy(tab2, tab0,(4*a));
     memcpy(tab3, tab0,(4*a));
     memcpy(tab4, tab0,(4*a));
     memcpy(tab5, tab0,(4*a));
 }
+void checkif(){ // function that checks if the sorting gave the right results
+    int i=0;
+    while((tab1[i]<=tab1[i+1])&&(i<(a-2))){
+        i++;
+    }
+    if(tab1[i]>tab1[i+1])
+        cout<<"tab no. 1 has an sorting error on position: "<<i<<endl;
+    i=0;
+    while((tab2[i]<=tab2[i+1])&&(i<(a-2))){
+        i++;
+    }
+    if(tab2[i]>tab2[i+1])
+        cout<<"tab no. 2 has an sorting error on position: "<<i<<endl;
+    i=0;
+    while((tab3[i]<=tab3[i+1])&&(i<(a-2))){
+        i++;
+    }
+    if(tab3[i]>tab3[i+1])
+        cout<<"tab no. 3 has an sorting error on position: "<<i<<endl;
+    i=0;
+    while((tab4[i]<=tab4[i+1])&&(i<(a-2))){
+        i++;
+    }
+    if(tab4[i]>tab4[i+1])
+        cout<<"tab no. 4 has an sorting error on position:  "<<i<<endl;
+    i=0;
+    while((tab5[i]<=tab5[i+1])&&(i<(a-2))){
+        i++;
+    }
+    if(tab5[i]>tab5[i+1])
+        cout<<"tab no. 5 has an sorting error on position: "<<i<<endl;
+}
 void displayres(int a){
-    cout<<"czas sortowania 1 algorytmu: "<<results[0][0]<<endl;
-    cout<<"czas sortowania 2 algorytmu: "<<results[1][0]<<endl;
-    cout<<"czas sortowania 3 algorytmu: "<<results[2][0]<<endl;
-    cout<<"czas sortowania 4 algorytmu: "<<results[3][0]<<endl;
+    cout<<"sorting time of alg no. 1: "<<results[0][0]<<endl;
+    cout<<"sorting time of alg no. 2: : "<<results[1][0]<<endl;
+    cout<<"sorting time of alg no. 3: : "<<results[2][0]<<endl;
+    cout<<"sorting time of alg no. 4: : "<<results[3][0]<<endl;
+    cout<<"sorting time of alg no. 5: : "<<results[4][0]<<endl;
 }
 displaysorted(int a){
     int temp;
-    cout<<"tab0"<<endl;
-    for(int i=0; i<a;i++){
-        cout<<"element "<<i+1<<" :"<<tab0[i]<<endl;
-    }
     cin>>temp;
-    cout<<"tab1"<<endl;
-    for(int i=0; i<a;i++){
-        cout<<"element "<<i+1<<" :"<<tab1[i]<<endl;
+    switch(temp){
+    case 0:
+       cout<<"tab0"<<endl;
+        for(int i=0; i<a;i++){
+            cout<<"element "<<i+1<<" :"<<tab0[i]<<endl;
+            }
+        break;
+    case 1:
+       cout<<"tab1"<<endl;
+        for(int i=0; i<a;i++){
+            cout<<"element "<<i+1<<" :"<<tab1[i]<<endl;
+            }
+        break;
+    case 2:
+       cout<<"tab2"<<endl;
+        for(int i=0; i<a;i++){
+            cout<<"element "<<i+1<<" :"<<tab2[i]<<endl;
+            }
+        break;
+    case 3:
+       cout<<"tab0"<<endl;
+        for(int i=0; i<a;i++){
+            cout<<"element "<<i+1<<" :"<<tab3[i]<<endl;
+            }
+        break;
+    case 4:
+       cout<<"tab4"<<endl;
+        for(int i=0; i<a;i++){
+            cout<<"element "<<i+1<<" :"<<tab4[i]<<endl;
+            }
+        break;
+    case 5:
+       cout<<"tab5"<<endl;
+        for(int i=0; i<a;i++){
+            cout<<"element "<<i+1<<" :"<<tab5[i]<<endl;
+            }
+        break;
     }
-    cin>>temp;
-    cout<<"tab2"<<endl;
-    for(int i=0; i<a;i++){
-        cout<<"element "<<i+1<<" :"<<tab2[i]<<endl;
-    }
-    cin>>temp;
-    cout<<"tab3"<<endl;
-    for(int i=0; i<a;i++){
-        cout<<"element "<<i+1<<" :"<<tab3[i]<<endl;
-    }
-    cin>>temp;
-   cout<<"tab4"<<endl;
-    for(int i=0; i<a;i++){
-        cout<<"element "<<i+1<<" :"<<tab4[i]<<endl;
-    }
-    //cout<<"tab5"<<endl;
-    //for(int i=0; i<a;i++){
-    //    cout<<"element "<<i+1<<" :"<<tab5[i]<<endl;
-    //}
     }
 void deletemem(){
     delete[] tab0;
@@ -118,7 +161,7 @@ void sort1(){//basic insert sorting alg
 }
 
 
-void sort2(){//variation 1 of insert sorting algorithm
+void sort2(){//variation 1 of insert sorting algorithm mistakes made here
     int temp;
     auto start=std::chrono::high_resolution_clock::now();
     int j;
@@ -138,7 +181,7 @@ void sort2(){//variation 1 of insert sorting algorithm
    results[1][0]=duration.count();
     cout<<"2 sort powiodlo sie"<<endl;
 }
-void sort3(){//variation 2 of insert sorting algorithm mirror of sort2
+void sort3(){//variation 2 of insert sorting algorithm mirror of sort2 mistakes made here
     auto start=std::chrono::high_resolution_clock::now();
     for (int i = a - 2; i >= 0; i--) {
         int temp = tab3[i];
@@ -173,20 +216,44 @@ void sort4(){ //variation 3 of insert sorting algorithm mirror of sort1
    results[3][0]=duration.count();
    cout<<"4 sort powiodlo sie"<<endl;
 }
+void sort5(){//Binary insertion sorting alg
+    int temp;
+    int left;
+    int right;
+    int shot;
+    auto start=std::chrono::high_resolution_clock::now();
+    for (int i = 1; i < a; i++) {
+        temp = tab5[i];
+        left = 0;
+        right = i;
+        while (left < right) {
+            shot = (left + right) / 2;
+            if (tab5[shot] < temp)
+                left = shot + 1;
+            else
+                right = shot;
+        }
+        shot = left;
+        for (int ii = i; ii > shot; ii--) {
+            tab5[ii] = tab5[ii - 1];
+        }
+        tab5[shot] = temp;
+    }
+   auto end=std::chrono::high_resolution_clock::now();
+   std::chrono::duration<double> duration=end - start;
+   results[4][0]=duration.count();
+    cout<<"5 sort powiodlo sie"<<endl;
+}
 
-//tab1[j]^=tab1[j-1];
-//tab1[j-1]^=tab1[j];
-//tab1[j]^=tab1[j-1];
 int main() {
     while(true){
     int choice;
-    cout<<"MENU OPCJI"<<endl<<"1. zainicjuj nowe tablice"<<endl<<"2. rozpocznij sortowanie"<<endl<<"3. podglad wynikow"<<endl<<"4. podglad tablic"<<endl<<"5. wyjscie"<<endl<<"============================"<<endl;
+    cout<<"MENU OPCJI"<<endl<<"1. initialize new arrays"<<endl<<"2. start sorting"<<endl<<"3. view results(time)"<<endl<<"4. inspect arrays"<<endl<<"5. inspect arrays automaticaly"<<endl<<"5. exit"<<endl<<"============================"<<endl;
     cin>>choice;
     switch(choice){
     case 1:
         deletemem();
-        cout << "wywolanie finkcji inicjujacej tavlice "<<endl;
-        cout<<"podaj wielkosc tablicy"<<endl;
+        cout<<"insert the size of an arrays you want to create"<<endl;
         cin>>a;
         czas++;
         srand(czas);
@@ -197,6 +264,7 @@ int main() {
         sort2();
         sort3();
         sort4();
+        sort5();
         break;
     case 3:
         displayres(a);
@@ -205,6 +273,9 @@ int main() {
         displaysorted(a);
         break;
     case 5:
+        checkif();
+        break;
+    case 6:
         deletemem();
         exit(0);
         break;
@@ -212,4 +283,4 @@ int main() {
     }
     return 0;
 }
-//24.03
+
