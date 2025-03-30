@@ -4,8 +4,8 @@
 #include<ctime>
 #include<chrono>
 #include<thread>
+#include<fstream>
 using namespace std;
-//using namespace std::literals::chrono_literals;
 int a;
 int czas=time(0);
 int* tab1;
@@ -14,7 +14,7 @@ int* tab3;
 int* tab4;
 int* tab5;
 int* tab0;
-double results[5][6]; //tab for results of both time results and number of oeprations each algorithm had to inflict in order to sort the array
+double results[5][190]; //tab for results
 void randomize(int b){ // function that randomizes and initializes four tabs of int from range 1 to aprox 32000
     tab0=new int[b];
     tab1=new int[b];
@@ -31,20 +31,13 @@ void randomize(int b){ // function that randomizes and initializes four tabs of 
             i++;
         }
         else{
-            //for(int j=0;j<=i;j++){
-            //    if(tab0[j]==temp){
-            //    powt=true;
-                //cout<<i<<" Powtórka!!!"<<temp<<endl;
-             //  break;
-             //   }
-            //}
             if(!powt){
                 tab0[i]=temp;
                 i++;
             }
         }
     }
-    cout<<"succes!"<<endl;
+    //cout<<"succes!"<<endl;
     memcpy(tab1, tab0,(4*a));
     memcpy(tab2, tab0,(4*a));
     memcpy(tab3, tab0,(4*a));
@@ -140,7 +133,7 @@ void deletemem(){
     delete[] tab4;
     delete[] tab5;
 }
-void sort1(){//basic insert sorting alg
+void sort1(int p){//basic insert sorting alg
     int temp;
      auto start=std::chrono::high_resolution_clock::now();
 
@@ -156,12 +149,12 @@ void sort1(){//basic insert sorting alg
    }
    auto end=std::chrono::high_resolution_clock::now();
    std::chrono::duration<double> duration=end - start;
-   results[0][0]=duration.count();
-   cout<<"1 sort powiodlo sie"<<endl;
+   results[0][p]=results[0][p]+duration.count();
+   //cout<<"1 sort powiodlo sie"<<endl;
 }
 
 
-void sort2(){//variation 1 of insert sorting algorithm mistakes made here
+void sort2(int p){//variation 1 of insert sorting algorithm mistakes made here
     int temp;
     auto start=std::chrono::high_resolution_clock::now();
     int j;
@@ -178,26 +171,31 @@ void sort2(){//variation 1 of insert sorting algorithm mistakes made here
    }
    auto end=std::chrono::high_resolution_clock::now();
    std::chrono::duration<double> duration=end - start;
-   results[1][0]=duration.count();
-    cout<<"2 sort powiodlo sie"<<endl;
+   results[1][p]=results[1][p]+duration.count();
+    //cout<<"2 sort powiodlo sie"<<endl;
 }
-void sort3(){//variation 2 of insert sorting algorithm mirror of sort2 mistakes made here
-    auto start=std::chrono::high_resolution_clock::now();
+void sort3(int p) {
+    int temp;
+    auto start = std::chrono::high_resolution_clock::now();
+    int j;
+
     for (int i = a - 2; i >= 0; i--) {
-        int temp = tab3[i];
-        int j = i;
-        while (j < a - 1 && tab3[j + 1] < temp) {
-            tab3[j] = tab3[j + 1];
-            j++;
+        j = a - 1;
+        while ((j > i) && (tab3[j] > tab3[i])) {
+            j--;
+        }
+        temp = tab3[i];
+        for (int ii = i; ii < j; ii++) {
+            tab3[ii] = tab3[ii + 1];
         }
         tab3[j] = temp;
     }
-   auto end=std::chrono::high_resolution_clock::now();
-   std::chrono::duration<double> duration=end - start;
-   results[2][0]=duration.count();
-    cout<<"3 sort powiodlo sie"<<endl;
+
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration = end - start;
+    results[2][p] += duration.count();
 }
-void sort4(){ //variation 3 of insert sorting algorithm mirror of sort1
+void sort4(int p){ //variation 3 of insert sorting algorithm mirror of sort1
       int temp;
      auto start=std::chrono::high_resolution_clock::now();
 
@@ -213,10 +211,10 @@ void sort4(){ //variation 3 of insert sorting algorithm mirror of sort1
    }
    auto end=std::chrono::high_resolution_clock::now();
    std::chrono::duration<double> duration=end - start;
-   results[3][0]=duration.count();
-   cout<<"4 sort powiodlo sie"<<endl;
+   results[3][p]=results[3][p]+duration.count();
+   //cout<<"4 sort powiodlo sie"<<endl;
 }
-void sort5(){//Binary insertion sorting alg
+void sort5(int p){//Binary insertion sorting alg
     int temp;
     int left;
     int right;
@@ -241,16 +239,17 @@ void sort5(){//Binary insertion sorting alg
     }
    auto end=std::chrono::high_resolution_clock::now();
    std::chrono::duration<double> duration=end - start;
-   results[4][0]=duration.count();
-    cout<<"5 sort powiodlo sie"<<endl;
+   results[4][p]=results[4][p]+duration.count();
+    //cout<<"5 sort powiodlo sie"<<endl;
 }
 
 int main() {
     while(true){
     int choice;
-    cout<<"MENU OPCJI"<<endl<<"1. initialize new arrays"<<endl<<"2. start sorting"<<endl<<"3. view results(time)"<<endl<<"4. inspect arrays"<<endl<<"5. inspect arrays automaticaly"<<endl<<"5. exit"<<endl<<"============================"<<endl;
+    cout<<"Options:"<<endl<<"1. initialize new arrays"<<endl<<"2. start sorting"<<endl<<"3. view results(time)"<<endl<<"4. inspect arrays"<<endl<<"5. inspect arrays automaticaly"<<endl<<"6. exit"<<endl<<"============================"<<endl;
     cin>>choice;
     switch(choice){
+
     case 1:
         deletemem();
         cout<<"insert the size of an arrays you want to create"<<endl;
@@ -260,11 +259,11 @@ int main() {
         randomize(a);
         break;
     case 2:
-        sort1();
-        sort2();
-        sort3();
-        sort4();
-        sort5();
+        sort1(0);
+        sort2(0);
+        sort3(0);
+        sort4(0);
+        sort5(0);
         break;
     case 3:
         displayres(a);
