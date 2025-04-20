@@ -106,7 +106,7 @@ displaysorted(int a){
             }
         break;
     case 3:
-       cout<<"tab0"<<endl;
+       cout<<"tab3"<<endl;
         for(int i=0; i<a;i++){
             cout<<"element "<<i+1<<" :"<<tab3[i]<<endl;
             }
