@@ -1,2 +1,0 @@
-# Sortalg
- Various sorting algorithms
